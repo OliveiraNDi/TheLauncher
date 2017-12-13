@@ -12,9 +12,9 @@ namespace TheLauncher
     class Program
     {
 
-        const string pathApp = "..\\..\\McApp.txt";
-        const string pathFolder = "..\\..\\McFolder.txt";
-        const string Config = "..\\..\\Config.txt";
+        const string pathApp = "..\\..\\keywordsApp.txt";
+        const string pathFolder = "..\\..\\keywordsFolder.txt";
+        const string Config = "..\\..\\config.txt";
 
 
         static void Main(string[] args)
@@ -23,7 +23,7 @@ namespace TheLauncher
             File.AppendAllText(pathApp, "");
             File.AppendAllText(pathFolder, "");
 
-            string strSaisie = "";
+            string EnterText = "";
 
             Console.WriteLine("---------------------------------------------------------");
             Console.WriteLine("-\tPour voir toutes les commandes faites \"help\"\t-");
@@ -31,10 +31,9 @@ namespace TheLauncher
             do
             {
                 Console.Write("Run\n$ ");
-                strSaisie = (Console.ReadLine()); // Lire la saisie de l'utilisateur
-                ReadLines(strSaisie); // Regarde directement si la saisie est un mot-clef
+                EnterText = (Console.ReadLine()); // Lire la saisie de l'utilisateur
 
-                switch (strSaisie)
+                switch (EnterText)
                 {
                     case "exit":
                         Console.WriteLine("Leaving...");
@@ -48,19 +47,20 @@ namespace TheLauncher
                         break;
                     case "add":
                         Console.Write("Si ce n'est pas la bonne commande faites \"exit\"\nDossier ou Fichier ?\n 1\\2 : ");
-                        strSaisie = (Console.ReadLine());
-                        switch (strSaisie)
+                        EnterText = (Console.ReadLine());
+                        switch (EnterText)
                         {
                             case "1":
                                 WriteFileFolder();
                                 break;
                             case "2":
-                                WriteFileFolder();
+                                WriteFileApp();
+                                break;
                         }
                         break;
                     case "add -a":
                     case "add -f":
-                        if (strSaisie == "add -a")
+                        if (EnterText == "add -a")
                         {
                             WriteFileApp();     // Call WriteMcApp(add -a)
                         }
@@ -80,24 +80,28 @@ namespace TheLauncher
 
                         break;
                     default:
-                        if (strSaisie == "")
+                        if (EnterText == "")
                         {
 
                         }
                         else
                         {
-                            Console.Write("Ce mot-clef n'exite pas\nVoulez-vous le créer ?\n y/n : ");
-                            strSaisie = Console.ReadLine();
-                            if (strSaisie == "y")
+                            bool LauncherOK = StartApp(EnterText); // Regarde directement si la saisie est un mot-clef
+                            if (!LauncherOK)
                             {
-                                Console.WriteLine("Dossier ou Fichier ?\n 1\\2");
-                                strSaisie = (Console.ReadLine());
-                                switch (strSaisie)
+                                Console.Write("Ce mot-clef n'exite pas\nVoulez-vous le créer ?\n y/n : ");
+                                EnterText = Console.ReadLine();
+                                if (EnterText == "y")
                                 {
-                                    case "1":
-                                    case "2":
-                                        WriteFileFolder();
-                                        break;
+                                    Console.WriteLine("Dossier ou Fichier ?\n 1\\2");
+                                    EnterText = (Console.ReadLine());
+                                    switch (EnterText)
+                                    {
+                                        case "1":
+                                        case "2":
+                                            WriteFileFolder();
+                                            break;
+                                    }
                                 }
                             }
                         }
@@ -105,7 +109,7 @@ namespace TheLauncher
 
 
                 }
-            } while (strSaisie != "exit");
+            } while (EnterText != "exit");
         }
 
         static void WriteFileFolder()
@@ -159,34 +163,46 @@ namespace TheLauncher
             }
             Console.ResetColor();
         }
+        
 
-        static void ReadLines(string motRecherche)
+        static bool StartApp(string searchedWord)
         {
             string[] linesApp = File.ReadAllLines(pathApp);
-            string[] linesFolder = File.ReadAllLines(pathFolder);
+            string CommandApp = FindCommand(searchedWord, linesApp);
 
+            string[] linesFolder = File.ReadAllLines(pathFolder);
+            string CommandFolder = FindCommand(searchedWord, linesFolder);
+
+            if (CommandApp != "")
+            {
+                RunApp(CommandApp);
+                return true;
+            }
+            else if (CommandFolder != "")
+            {
+                RunFolder(CommandFolder);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        static string FindCommand(string Keyword, string[] List)
+        {
+            string command = "";
             int i = 0;
-            while (i < linesApp.Length)
+            while (i < List.Length)
             {
-                string[] mot = linesApp[i].Split(new char[] { ' ' }, 2);
-                if (mot[0] == motRecherche)
+                string[] word = List[i].Split(new char[] { ' ' }, 2);
+                if (word[0] == Keyword)
                 {
-                    string accèsMotRecherche = mot[1];
-                    RunApp(accèsMotRecherche);
+                    command = word[1];
                 }
                 i++;
             }
-            i = 0;
-            while (i < linesFolder.Length)
-            {
-                string[] mot = linesFolder[i].Split(new char[] { ' ' }, 2);
-                if (mot[0] == motRecherche)
-                {
-                    string accèsMotRecherche = mot[1];
-                    RunFolder(accèsMotRecherche);
-                }
-                i++;
-            }
+            return command;
         }
 
         static void RunApp(string path)
