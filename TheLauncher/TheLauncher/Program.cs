@@ -108,6 +108,21 @@ namespace TheLauncher
             } while (strSaisie != "exit");
         }
 
+
+        static void RunApp(string path)
+        {
+            Process pProcess = new Process();
+            pProcess.StartInfo.FileName = path;
+            pProcess.StartInfo.Arguments = ""; //argument
+            pProcess.StartInfo.UseShellExecute = false;
+            pProcess.StartInfo.RedirectStandardOutput = true;
+            pProcess.Start();
+        }
+        static void RunFolder(string path)
+        {
+            Process.Start("explorer.exe", path);
+        }
+
         static void HelpText()
         {
             Console.WriteLine("\n------------------------------------------------------\n");
