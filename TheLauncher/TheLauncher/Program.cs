@@ -133,6 +133,7 @@ namespace TheLauncher
             newLine += "\n";
             File.AppendAllText(pathApp, newLine);
         }
+
         static void ReadFilesList()
         {
             string[] linesApp = File.ReadAllLines(pathApp);
@@ -158,6 +159,36 @@ namespace TheLauncher
             }
             Console.ResetColor();
         }
+
+        static void ReadLines(string motRecherche)
+        {
+            string[] linesApp = File.ReadAllLines(pathApp);
+            string[] linesFolder = File.ReadAllLines(pathFolder);
+
+            int i = 0;
+            while (i < linesApp.Length)
+            {
+                string[] mot = linesApp[i].Split(new char[] { ' ' }, 2);
+                if (mot[0] == motRecherche)
+                {
+                    string accèsMotRecherche = mot[1];
+                    RunApp(accèsMotRecherche);
+                }
+                i++;
+            }
+            i = 0;
+            while (i < linesFolder.Length)
+            {
+                string[] mot = linesFolder[i].Split(new char[] { ' ' }, 2);
+                if (mot[0] == motRecherche)
+                {
+                    string accèsMotRecherche = mot[1];
+                    RunFolder(accèsMotRecherche);
+                }
+                i++;
+            }
+        }
+
         static void RunApp(string path)
         {
             Process pProcess = new Process();
