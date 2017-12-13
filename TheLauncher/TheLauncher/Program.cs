@@ -121,7 +121,18 @@ namespace TheLauncher
             File.AppendAllText(pathFolder, newLine);
         }
 
-        
+        static void WriteFileApp()
+        {
+            string newLine = "";
+            Console.WriteLine("Créer un mot-clef pour un fichier");
+            Console.Write("Sans Espace au début\nEntre le nom du mot-clef: ");
+            newLine += Console.ReadLine();
+            newLine += " ";
+            Console.Write("\nSans Espace au début\nEntre le chemin d'accès: ");
+            newLine += Console.ReadLine();
+            newLine += "\n";
+            File.AppendAllText(pathApp, newLine);
+        }
         static void ReadFilesList()
         {
             string[] linesApp = File.ReadAllLines(pathApp);
