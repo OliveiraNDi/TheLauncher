@@ -108,7 +108,29 @@ namespace TheLauncher
             } while (strSaisie != "exit");
         }
 
-
+        static void ReadFilesList()
+        {
+            string[] linesApp = File.ReadAllLines(pathApp);
+            string[] linesFolder = File.ReadAllLines(pathFolder);
+            Console.WriteLine("Voici tous les mots-clefs qui exécutent des applications :");
+            int i = 0;
+            while (i < linesApp.Length)
+            {
+                string line = linesApp[i];
+                Console.WriteLine("\t{0}\n", line);
+                i++;
+            }
+            Console.ResetColor();
+            Console.WriteLine("Voici tout les mots-clef des dossiers :");
+            i = 0;
+            while (i < linesFolder.Length)
+            {
+                string line = linesFolder[i];
+                Console.WriteLine("\t{0}\n", line);
+                i++;
+            }
+            Console.ResetColor();
+        }
         static void RunApp(string path)
         {
             Process pProcess = new Process();
