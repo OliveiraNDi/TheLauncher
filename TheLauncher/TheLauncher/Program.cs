@@ -117,6 +117,7 @@ namespace TheLauncher
             while (i < linesApp.Length)
             {
                 string line = linesApp[i];
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\t{0}\n", line);
                 i++;
             }
@@ -126,6 +127,7 @@ namespace TheLauncher
             while (i < linesFolder.Length)
             {
                 string line = linesFolder[i];
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("\t{0}\n", line);
                 i++;
             }
