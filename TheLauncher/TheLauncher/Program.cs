@@ -14,52 +14,98 @@ namespace TheLauncher
         const string pathApp = "..\\..\\McApp.txt";
         const string pathFolder = "..\\..\\McFolder.txt";
         const string Config = "..\\..\\Config.txt";
+
+
         static void Main(string[] args)
         {
+            File.AppendAllText(Config, "");
             File.AppendAllText(pathApp, "");
             File.AppendAllText(pathFolder, "");
+
+            string strSaisie = "";
+
             Console.WriteLine("---------------------------------------------------------");
             Console.WriteLine("-\tPour voir toutes les commandes faites \"help\"\t-");
             Console.WriteLine("---------------------------------------------------------");
-            string strSaisie = "";
             do
             {
-                Console.WriteLine("Run");
-                Console.Write("$");
-                strSaisie = (Console.ReadLine());
+                Console.Write("Run\n$ ");
+                strSaisie = (Console.ReadLine()); // Lire la saisie de l'utilisateur
+                ReadLines(strSaisie); // Regarde directement si la saisie est un mot-clef
 
-                switch(strSaisie)
+                switch (strSaisie)
                 {
+                    case "exit":
+                        Console.WriteLine("Leaving...");
+                        Thread.Sleep(500); // attendre 500ms avant de quitter
+                        break;
                     case "help":
-                                                // Call HelpText()
+                        HelpText();     // Call HelpText()
                         break;
                     case "list":
-                                                // Call ReadFilesList()
+                        ReadFilesList();        // Call ReadFilesList()
                         break;
                     case "add":
-                        
+                        Console.Write("Si ce n'est pas la bonne commande faites \"exit\"\nDossier ou Fichier ?\n 1\\2 : ");
+                        strSaisie = (Console.ReadLine());
+                        switch (strSaisie)
+                        {
+                            case "1":
+                                WriteFileFolder();
+                                break;
+                            case "2":
+                                WriteFileFolder();
+                        }
                         break;
                     case "add -a":
                     case "add -f":
                         if (strSaisie == "add -a")
                         {
-                            // Call WriteMcApp(add -a)
+                            WriteFileApp();     // Call WriteMcApp(add -a)
                         }
                         else
                         {
-                            // Call WriteMcFile(add -f)
+                            WriteFileFolder();   // Call WriteMcFile(add -f)
                         }
                         break;
+                    case "clear":
+                        Console.Clear();
+
+                        Console.WriteLine("---------------------------------------------------------");
+                        Console.WriteLine("-\tPour voir toutes les commandes faites \"help\"\t-");
+                        Console.WriteLine("---------------------------------------------------------");
+                        break;
                     case "config":
+
                         break;
                     default:
-                            // Call ReadLines(strSaisie)
+                        if (strSaisie == "")
+                        {
+
+                        }
+                        else
+                        {
+                            Console.Write("Ce mot-clef n'exite pas\nVoulez-vous le créer ?\n y/n : ");
+                            strSaisie = Console.ReadLine();
+                            if (strSaisie == "y")
+                            {
+                                Console.WriteLine("Dossier ou Fichier ?\n 1\\2");
+                                strSaisie = (Console.ReadLine());
+                                switch (strSaisie)
+                                {
+                                    case "1":
+                                    case "2":
+                                        WriteFileFolder();
+                                        break;
+                                }
+                            }
+                        }
                         break;
 
-                        
+
                 }
             } while (strSaisie != "exit");
-        }
+        }        
 
     }
 }
