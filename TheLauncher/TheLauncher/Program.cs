@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TheLauncher
@@ -105,7 +106,31 @@ namespace TheLauncher
 
                 }
             } while (strSaisie != "exit");
-        }        
+        }
+
+        static void HelpText()
+        {
+            Console.WriteLine("\n------------------------------------------------------\n");
+            Console.WriteLine("\tOuvrir un mot-clef\t\t\t\t\top [Mot-clef]");
+            Console.WriteLine("\n------------------------------------------------------\n");
+            Console.WriteLine("\tCréer un mot-clef\t\t\t\t\tadd [Mot-clef] [Chemin accès]");
+            Console.WriteLine("\n------------------------------------------------------\n");
+            Console.WriteLine("\tEnlever un ou plusieurs mots-clefs:");
+            Console.WriteLine("\t\tEnlever un mot-clef\t\t\t\trm [Mot-clef]");
+            Console.WriteLine("\t\tEnlever tous mots-clefs\t\t\t\trm --all");
+            Console.WriteLine("\n------------------------------------------------------\n");
+            Console.WriteLine("\tModifier le nom du mot-clef ou son chemin d'acces:");
+            Console.WriteLine("\t\tModifier le nom d'un mot-clef\t\t\tmd [Mot-clef] [Nouveau nom du mot-clef]");
+            Console.WriteLine("\t\tModifier le chemin d'acces\t\t\tmd -c [Nom du mot-clef] [Nouveau chemin d'acces]");
+            Console.WriteLine("\n------------------------------------------------------\n");
+            Console.WriteLine("\tModifier l'interface graphique");
+            Console.WriteLine("\t\tModifier la couleur de fond\t\t\tbackground [couleur]");
+            Console.WriteLine("\t\tModifier la couleur du texte\t\t\tcolor [couleur]");
+            Console.WriteLine("\n------------------------------------------------------\n");
+            Console.WriteLine("\tAfficher la liste de mots-clefs\t\t\t\tlist");
+            Console.WriteLine("\n------------------------------------------------------\n");
+        }
+
 
     }
 }
