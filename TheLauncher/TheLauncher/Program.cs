@@ -23,6 +23,7 @@ namespace TheLauncher
             File.AppendAllText(pathApp, "");
             File.AppendAllText(pathFolder, "");
 
+            string newLine = "";
             string EnterText = "";
 
             Console.WriteLine("---------------------------------------------------------");
@@ -32,8 +33,9 @@ namespace TheLauncher
             {
                 Console.Write("Run\n$ ");
                 EnterText = (Console.ReadLine()); // Lire la saisie de l'utilisateur
+                string[] word = EnterText.Split(' ');
 
-                switch (EnterText)
+                switch (word[0])
                 {
                     case "exit":
                         Console.WriteLine("Leaving...");
@@ -46,27 +48,26 @@ namespace TheLauncher
                         ReadFilesList();        // Call ReadFilesList()
                         break;
                     case "add":
-                        Console.Write("Si ce n'est pas la bonne commande faites \"exit\"\nDossier ou Fichier ?\n 1\\2 : ");
-                        EnterText = (Console.ReadLine());
-                        switch (EnterText)
+                        switch(word[1])
                         {
-                            case "1":
-                                WriteFileFolder();
+                            case "-a":
+                                newLine += word[2];
+                                newLine += " ";
+                                newLine += word[3];
+                                newLine += "\n";
+                                File.AppendAllText(pathApp, newLine);
                                 break;
-                            case "2":
-                                WriteFileApp();
+                            case "-f":
+                                newLine += word[2];
+                                newLine += " ";
+                                newLine += word[3];
+                                newLine += "\n";
+                                File.AppendAllText(pathFolder, newLine);
                                 break;
-                        }
-                        break;
-                    case "add -a":
-                    case "add -f":
-                        if (EnterText == "add -a")
-                        {
-                            WriteFileApp();     // Call WriteMcApp(add -a)
-                        }
-                        else
-                        {
-                            WriteFileFolder();   // Call WriteMcFile(add -f)
+                            default:
+                                Console.Write("App ou Dossier ?\n1|2 ");
+                                EnterText
+                                break;
                         }
                         break;
                     case "clear":
