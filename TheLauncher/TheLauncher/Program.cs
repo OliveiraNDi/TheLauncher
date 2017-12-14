@@ -14,12 +14,9 @@ namespace TheLauncher
 
         const string pathApp = "..\\..\\keywordsApp.txt";
         const string pathFolder = "..\\..\\keywordsFolder.txt";
-        const string Config = "..\\..\\config.txt";
-
-
+        
         static void Main(string[] args)
         {
-            File.AppendAllText(Config, "");
             File.AppendAllText(pathApp, "");
             File.AppendAllText(pathFolder, "");
 
@@ -48,7 +45,7 @@ namespace TheLauncher
                         ReadFilesList();        // Call ReadFilesList()
                         break;
                     case "add":
-                        switch(word[1])
+                        switch (word[1])
                         {
                             case "-a":
                                 newLine += word[2];
@@ -66,7 +63,15 @@ namespace TheLauncher
                                 break;
                             default:
                                 Console.Write("App ou Dossier ?\n1|2 ");
-                                EnterText
+                                EnterText = Console.ReadLine();
+                                if (EnterText == "1")
+                                {
+                                    Console.WriteLine("Pour ajouter une application faites: add -a [mot-clef] [chemin d'accès]");
+                                }
+                                else if (EnterText == "2")
+                                {
+                                    Console.WriteLine("Pour ajouter un dossier faites: add -f [mot-clef] [chemin d'accès]");
+                                }
                                 break;
                         }
                         break;
@@ -77,15 +82,8 @@ namespace TheLauncher
                         Console.WriteLine("-\tPour voir toutes les commandes faites \"help\"\t-");
                         Console.WriteLine("---------------------------------------------------------");
                         break;
-                    case "config":
-
-                        break;
                     default:
-                        if (EnterText == "")
-                        {
-
-                        }
-                        else
+                        if (EnterText != "")
                         {
                             bool LauncherOK = StartApp(EnterText); // Regarde directement si la saisie est un mot-clef
                             if (!LauncherOK)
@@ -94,17 +92,19 @@ namespace TheLauncher
                                 EnterText = Console.ReadLine();
                                 if (EnterText == "y")
                                 {
-                                    Console.WriteLine("Dossier ou Fichier ?\n 1\\2");
+                                    Console.WriteLine("Dossier ou application ?\n 1\\2");
                                     EnterText = (Console.ReadLine());
-                                    switch (EnterText)
+                                    if (EnterText == "1")
                                     {
-                                        case "1":
-                                        case "2":
-                                            WriteFileFolder();
-                                            break;
+                                        WriteFileFolder();
+                                    }
+                                    else if (EnterText == "2")
+                                    {
+                                        WriteFileApp();
                                     }
                                 }
                             }
+
                         }
                         break;
 
@@ -223,23 +223,17 @@ namespace TheLauncher
         static void HelpText()
         {
             Console.WriteLine("\n------------------------------------------------------\n");
-            Console.WriteLine("\tOuvrir un mot-clef\t\t\t\t\top [Mot-clef]");
+            Console.WriteLine("\tOuvrir un mot-clef\t\t\t\t\t [Mot-clef]");
             Console.WriteLine("\n------------------------------------------------------\n");
-            Console.WriteLine("\tCréer un mot-clef\t\t\t\t\tadd [Mot-clef] [Chemin accès]");
-            Console.WriteLine("\n------------------------------------------------------\n");
-            Console.WriteLine("\tEnlever un ou plusieurs mots-clefs:");
-            Console.WriteLine("\t\tEnlever un mot-clef\t\t\t\trm [Mot-clef]");
-            Console.WriteLine("\t\tEnlever tous mots-clefs\t\t\t\trm --all");
-            Console.WriteLine("\n------------------------------------------------------\n");
-            Console.WriteLine("\tModifier le nom du mot-clef ou son chemin d'acces:");
-            Console.WriteLine("\t\tModifier le nom d'un mot-clef\t\t\tmd [Mot-clef] [Nouveau nom du mot-clef]");
-            Console.WriteLine("\t\tModifier le chemin d'acces\t\t\tmd -c [Nom du mot-clef] [Nouveau chemin d'acces]");
-            Console.WriteLine("\n------------------------------------------------------\n");
-            Console.WriteLine("\tModifier l'interface graphique");
-            Console.WriteLine("\t\tModifier la couleur de fond\t\t\tbackground [couleur]");
-            Console.WriteLine("\t\tModifier la couleur du texte\t\t\tcolor [couleur]");
+            Console.WriteLine("\tAjouter un mot-clef pour une application ou un dossier:");
+            Console.WriteLine("\t\tCréer pour une application\t\t\tadd -a [Mot-clef] [Chemin accès]");
+            Console.WriteLine("\t\tCréer pour un dossier\t\t\t\tadd -f [Mot-clef] [Chemin accès]");
             Console.WriteLine("\n------------------------------------------------------\n");
             Console.WriteLine("\tAfficher la liste de mots-clefs\t\t\t\tlist");
+            Console.WriteLine("\n------------------------------------------------------\n");
+            Console.WriteLine("\tEffaccer les commandes effectuées\t\t\tclear");
+            Console.WriteLine("\n------------------------------------------------------\n");
+            Console.WriteLine("\tQuitter le programme\t\t\t\t\texit");
             Console.WriteLine("\n------------------------------------------------------\n");
         }
 
