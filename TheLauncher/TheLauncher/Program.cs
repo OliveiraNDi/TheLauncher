@@ -44,6 +44,9 @@ namespace TheLauncher
                     case "list":
                         ReadFilesList();        // Call ReadFilesList()
                         break;
+                    case "rm":
+                        ReCreateFile(word[1]);
+                        break;
                     case "add":
                         switch (word[1])
                             {
@@ -111,6 +114,29 @@ namespace TheLauncher
 
                 }
             } while (EnterText != "exit");
+        }
+
+        static void ReCreateFile(string SearchedWord)
+        {
+            string[] linesApp = File.ReadAllLines(pathApp);
+            int i = 0;
+            string newLine;
+            string lineI;
+            while (i < linesApp.Length)
+            {
+                newLine = linesApp[i];
+                string[] word = linesApp[i].Split(new char[] { ' ' }, 2);
+                if (word[0] == SearchedWord)
+                {
+                    lineI = linesApp[i];
+                    File.AppendAllText(pathApp, "");
+                    newLine = ;
+                    File.AppendAllText();
+
+                }
+
+                i++;
+            }
         }
 
         static void WriteFileFolder()
