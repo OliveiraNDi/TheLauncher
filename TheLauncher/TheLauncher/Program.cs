@@ -112,7 +112,7 @@ namespace TheLauncher
                                     newLine += " ";
                                     newLine += word[3];
                                     newLine += "\n";
-                                    File.AppendAllText(pathApp, newLine);
+                                    File.AppendAllText(pathFolder, newLine);
                                 }
                                 break;
                             case "-h":
@@ -174,6 +174,7 @@ namespace TheLauncher
 
         static void ConfigTest(string searchedName)
         {
+            string EnterText;
             bool test = false;
             string[] linesConfig = File.ReadAllLines(Config);
             int i = 0;
@@ -190,15 +191,25 @@ namespace TheLauncher
             }
             if (test == false)
             {
-                Console.Write("\nYou haven't an account !\nOnly one spacebar\nInsert your name and the name of your computer : ");
-                string[] name = (Console.ReadLine()).Split(new char[] { ' ' }, 2);
-                Name = name[0];
-                Pc = name[1];
-                string newLine = searchedName;
-                newLine += " ";
-                newLine += Pc;
-                newLine += "\n";
-                File.AppendAllText(Config, newLine);
+                Console.Write("\nYou haven't an account !\nOnly one spacebar\nInsert exit for leave\nInsert your name and the name of your computer : ");
+                EnterText = Console.ReadLine();
+                if (EnterText != "exit")
+                {
+                    string[] name = EnterText.Split(new char[] { ' ' }, 2);
+                    Name = name[0];
+                    Pc = name[1];
+                    string newLine = searchedName;
+                    newLine += " ";
+                    newLine += Pc;
+                    newLine += "\n";
+                    File.AppendAllText(Config, newLine);
+                }
+                else
+                {
+                    Console.WriteLine("Leaving ...");
+                    Thread.Sleep(200);
+                    Environment.Exit(0);
+                }
             }
         }
         
