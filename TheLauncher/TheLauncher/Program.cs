@@ -121,21 +121,25 @@ namespace TheLauncher
             string[] linesApp = File.ReadAllLines(pathApp);
             int i = 0;
             string newLine;
-            string lineI;
+            int iLineToDelete = -1;
             while (i < linesApp.Length)
             {
                 newLine = linesApp[i];
                 string[] word = linesApp[i].Split(new char[] { ' ' }, 2);
                 if (word[0] == SearchedWord)
                 {
-                    lineI = linesApp[i];
-                    File.AppendAllText(pathApp, "");
-                    newLine = ;
-                    File.AppendAllText();
-
+                    iLineToDelete = i;
                 }
 
                 i++;
+            }
+
+            if (iLineToDelete > -1)
+            {
+                List<string> lstNewLinesApp = new List<string>(linesApp);
+                lstNewLinesApp.RemoveAt(iLineToDelete);
+                linesApp = lstNewLinesApp.ToArray();
+                File.WriteAllLines(pathApp, linesApp);
             }
         }
 
