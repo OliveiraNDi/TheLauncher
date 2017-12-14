@@ -117,10 +117,10 @@ namespace TheLauncher
         {
             string newLine = "";
             Console.WriteLine("Create a keyword for a folder");
-            Console.Write("Whitout Espace au début\nEntre le nom du mot-clef: ");
+            Console.Write("Whitout spacebar\nEnter the name of the keyword: ");
             newLine += Console.ReadLine();
             newLine += " ";
-            Console.Write("\nSans Espace au début\nEntre le chemin d'accès: ");
+            Console.Write("\nWithout spacebar\nEnter the path of your keyword: ");
             newLine += Console.ReadLine();
             newLine += "\n";
             File.AppendAllText(pathFolder, newLine);
@@ -129,11 +129,11 @@ namespace TheLauncher
         static void WriteFileApp()
         {
             string newLine = "";
-            Console.WriteLine("Créer un mot-clef pour un fichier");
-            Console.Write("Sans Espace au début\nEntre le nom du mot-clef: ");
+            Console.WriteLine("Create a keyword for an application");
+            Console.Write("Whitout spacebar\nEnter the name of the keyword: ");
             newLine += Console.ReadLine();
             newLine += " ";
-            Console.Write("\nSans Espace au début\nEntre le chemin d'accès: ");
+            Console.Write("\nWithout spacebar\nEnter the path of your keyword: ");
             newLine += Console.ReadLine();
             newLine += "\n";
             File.AppendAllText(pathApp, newLine);
@@ -143,7 +143,7 @@ namespace TheLauncher
         {
             string[] linesApp = File.ReadAllLines(pathApp);
             string[] linesFolder = File.ReadAllLines(pathFolder);
-            Console.WriteLine("Voici tous les mots-clefs qui exécutent des applications :");
+            Console.WriteLine("Here are all keywords of applications:");
             int i = 0;
             while (i < linesApp.Length)
             {
@@ -153,7 +153,7 @@ namespace TheLauncher
                 i++;
             }
             Console.ResetColor();
-            Console.WriteLine("Voici tout les mots-clef des dossiers :");
+            Console.WriteLine("Here are all keywords of folder:");
             i = 0;
             while (i < linesFolder.Length)
             {
@@ -223,17 +223,17 @@ namespace TheLauncher
         static void HelpText()
         {
             Console.WriteLine("\n------------------------------------------------------\n");
-            Console.WriteLine("\tOuvrir un mot-clef\t\t\t\t\t [Mot-clef]");
+            Console.WriteLine("\tOpen an keyword\t\t\t\t\t [keyword name's]");
             Console.WriteLine("\n------------------------------------------------------\n");
-            Console.WriteLine("\tAjouter un mot-clef pour une application ou un dossier:");
-            Console.WriteLine("\t\tCréer pour une application\t\t\tadd -a [Mot-clef] [Chemin accès]");
-            Console.WriteLine("\t\tCréer pour un dossier\t\t\t\tadd -f [Mot-clef] [Chemin accès]");
+            Console.WriteLine("\tAdd a keyword of an application or a folder:");
+            Console.WriteLine("\t\tCreate for an application\t\t\tadd -a [keyword] [path]");
+            Console.WriteLine("\t\tCreate for a folder\t\t\t\tadd -f [keyword] [path]");
             Console.WriteLine("\n------------------------------------------------------\n");
-            Console.WriteLine("\tAfficher la liste de mots-clefs\t\t\t\tlist");
+            Console.WriteLine("\tSee all keywords\t\t\t\tlist");
             Console.WriteLine("\n------------------------------------------------------\n");
-            Console.WriteLine("\tEffaccer les commandes effectuées\t\t\tclear");
+            Console.WriteLine("\tClean the console\t\t\tclear");
             Console.WriteLine("\n------------------------------------------------------\n");
-            Console.WriteLine("\tQuitter le programme\t\t\t\t\texit");
+            Console.WriteLine("\tLeave the console\t\t\t\t\texit");
             Console.WriteLine("\n------------------------------------------------------\n");
         }
 
