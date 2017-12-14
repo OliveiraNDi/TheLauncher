@@ -70,7 +70,7 @@ namespace TheLauncher
 
                         break;
                     case "add":
-                        if (word.Length <= 1)
+                        if (word.Length < 2)
                         {
                             strSecondWord = "-h";
                         }
@@ -81,18 +81,32 @@ namespace TheLauncher
                         switch (strSecondWord)
                         {
                             case "-a":
-                                newLine += word[2];
-                                newLine += " ";
-                                newLine += word[3];
-                                newLine += "\n";
-                                File.AppendAllText(pathApp, newLine);
+                                if (word.Length < 4)
+                                {
+                                    HelpText();
+                                }
+                                else
+                                {
+                                    newLine += word[2];
+                                    newLine += " ";
+                                    newLine += word[3];
+                                    newLine += "\n";
+                                    File.AppendAllText(pathApp, newLine);
+                                }
                                 break;
                             case "-f":
-                                newLine += word[2];
-                                newLine += " ";
-                                newLine += word[3];
-                                newLine += "\n";
-                                File.AppendAllText(pathFolder, newLine);
+                                if (word.Length < 4)
+                                {
+                                    HelpText();
+                                }
+                                else
+                                {
+                                    newLine += word[2];
+                                    newLine += " ";
+                                    newLine += word[3];
+                                    newLine += "\n";
+                                    File.AppendAllText(pathApp, newLine);
+                                }
                                 break;
                             case "-h":
                                 HelpText();
