@@ -14,21 +14,23 @@ namespace TheLauncher
 
         const string pathApp = "keywordsApp.txt";
         const string pathFolder = "keywordsFolder.txt";
+        const string Config = "config.txt";
         
         static void Main(string[] args)
         {
             File.AppendAllText(pathApp, "");
             File.AppendAllText(pathFolder, "");
+            File.AppendAllText(Config, "");
 
             string newLine = "";
             string EnterText = "";
-            
+            string strSecondWord;
             Console.WriteLine("-------------------------------------------------");
             Console.WriteLine("-\tTo see all commands made \"help\"\t\t-");
             Console.WriteLine("-------------------------------------------------");
             do
             {
-                Console.Write("Run\n$ ");
+                Console.Write("\nRun\n$ ");
                 EnterText = (Console.ReadLine()); // Lire la saisie de l'utilisateur
                 string[] word = EnterText.Split(' ');
 
@@ -45,38 +47,69 @@ namespace TheLauncher
                         ReadFilesList();        // Call ReadFilesList()
                         break;
                     case "rm":
-                        ReCreateFile(word[1]);
+                        if (word.Length <= 1)
+                        {
+                            strSecondWord = "-h";
+                        }
+                        else
+                        {
+                            strSecondWord = word[1];
+                        }
+                        switch (strSecondWord)
+                        {
+                            case "-a":
+                                RemoveKeywordApp(word[1]);
+                                break;
+                            case "-f":
+                                RemoveKeywordFolder(word[1]);
+                                break;
+                            case "-h":
+                                HelpText();
+                                break;
+                        }
+
                         break;
                     case "add":
-                        switch (word[1])
-                            {
-                                case "-a":
-                                    newLine += word[2];
-                                    newLine += " ";
-                                    newLine += word[3];
-                                    newLine += "\n";
-                                    File.AppendAllText(pathApp, newLine);
-                                    break;
-                                case "-f":
-                                    newLine += word[2];
-                                    newLine += " ";
-                                    newLine += word[3];
-                                    newLine += "\n";
-                                    File.AppendAllText(pathFolder, newLine);
-                                    break;
-                                default:
-                                    Console.Write("Application or Folder ?\n1|2 ");
-                                    char Choise = Console.ReadKey().KeyChar;
-                                    if (EnterText == "1")
-                                    {
-                                        Console.WriteLine("To add an application : add -a [mot-clef] [chemin d'accès]");
-                                    }
-                                    else if (EnterText == "2")
-                                    {
-                                        Console.WriteLine("To add a folder : add -f [mot-clef] [chemin d'accès]");
-                                    }
-                                    break;
-                            }
+                        if (word.Length <= 1)
+                        {
+                            strSecondWord = "-h";
+                        }
+                        else
+                        {
+                            strSecondWord = word[1];
+                        }
+                        switch (strSecondWord)
+                        {
+                            case "-a":
+                                newLine += word[2];
+                                newLine += " ";
+                                newLine += word[3];
+                                newLine += "\n";
+                                File.AppendAllText(pathApp, newLine);
+                                break;
+                            case "-f":
+                                newLine += word[2];
+                                newLine += " ";
+                                newLine += word[3];
+                                newLine += "\n";
+                                File.AppendAllText(pathFolder, newLine);
+                                break;
+                            case "-h":
+                                HelpText();
+                                break;
+                            default:
+                                Console.Write("Application or Folder ?\n1|2 ");
+                                char Choise = Console.ReadKey().KeyChar;
+                                if (EnterText == "1")
+                                {
+                                    Console.WriteLine("To add an application : add -a [mot-clef] [chemin d'accès]");
+                                }
+                                else if (EnterText == "2")
+                                {
+                                    Console.WriteLine("To add a folder : add -f [mot-clef] [chemin d'accès]");
+                                }
+                                break;
+                        }
                         break;
                     case "clear":
                         Console.Clear();
@@ -91,19 +124,21 @@ namespace TheLauncher
                             bool LauncherOK = StartApp(EnterText); // Regarde directement si la saisie est un mot-clef
                             if (!LauncherOK)
                             {
-                                Console.Write("This keyword doesn't exist\nDo you want to create it ?\n y/n : ");
+                                Console.Write("This keyword doesn't exist\nDo you want to create it ?\n y/n :");
                                 char Choise = Console.ReadKey().KeyChar;
                                 if (EnterText == "y")
                                 {
-                                    Console.WriteLine("Folder or application ?\n 1\\2");
+                                    Console.WriteLine("\nFolder or application ?\n 1\\2");
                                     Choise = Console.ReadKey().KeyChar;
-                                    if (EnterText == "1")
+                                    string choise = Convert.ToString(Choise);
+                                    switch(choise)
                                     {
-                                        WriteFileFolder();
-                                    }
-                                    else if (EnterText == "2")
-                                    {
-                                        WriteFileApp();
+                                        case "1":
+                                            WriteFileFolder();
+                                            break;
+                                        case "2":
+                                            WriteFileApp();
+                                            break;
                                     }
                                 }
                             }
@@ -116,7 +151,7 @@ namespace TheLauncher
             } while (EnterText != "exit");
         }
 
-        static void ReCreateFile(string SearchedWord)
+        static void RemoveKeywordApp(string SearchedWord)
         {
             string[] linesApp = File.ReadAllLines(pathApp);
             int i = 0;
@@ -140,6 +175,32 @@ namespace TheLauncher
                 lstNewLinesApp.RemoveAt(iLineToDelete);
                 linesApp = lstNewLinesApp.ToArray();
                 File.WriteAllLines(pathApp, linesApp);
+            }
+        }
+        static void RemoveKeywordFolder(string SearchedWord)
+        {
+            string[] linesFolder = File.ReadAllLines(pathFolder);
+            int i = 0;
+            string newLine;
+            int iLineToDelete = -1;
+            while (i < linesFolder.Length)
+            {
+                newLine = linesFolder[i];
+                string[] word = linesFolder[i].Split(new char[] { ' ' }, 2);
+                if (word[0] == SearchedWord)
+                {
+                    iLineToDelete = i;
+                }
+
+                i++;
+            }
+
+            if (iLineToDelete > -1)
+            {
+                List<string> lstNewLinesApp = new List<string>(linesFolder);
+                lstNewLinesApp.RemoveAt(iLineToDelete);
+                linesFolder = lstNewLinesApp.ToArray();
+                File.WriteAllLines(pathFolder, linesFolder);
             }
         }
 
@@ -253,11 +314,15 @@ namespace TheLauncher
         static void HelpText()
         {
             Console.WriteLine("\n------------------------------------------------------\n");
-            Console.WriteLine("\tOpen an keyword\t\t\t\t\t [keyword name's]");
+            Console.WriteLine("\tOpen a keyword\t\t\t\t\t [keyword's name]");
             Console.WriteLine("\n------------------------------------------------------\n");
-            Console.WriteLine("\tAdd a keyword of an application or a folder:");
+            Console.WriteLine("\tAdd a keyword:");
             Console.WriteLine("\t\tCreate for an application\t\t\tadd -a [keyword] [path]");
             Console.WriteLine("\t\tCreate for a folder\t\t\t\tadd -f [keyword] [path]");
+            Console.WriteLine("\n------------------------------------------------------\n");
+            Console.WriteLine("\tRemove a keyword:");
+            Console.WriteLine("\t\tRemove a keyword from applications\t\t\trm -a [keyword]");
+            Console.WriteLine("\t\tRemove a keyword from folders\t\t\trm -f [keyword]");
             Console.WriteLine("\n------------------------------------------------------\n");
             Console.WriteLine("\tSee all keywords\t\t\t\tlist");
             Console.WriteLine("\n------------------------------------------------------\n");
