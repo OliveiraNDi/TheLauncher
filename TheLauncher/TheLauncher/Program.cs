@@ -12,8 +12,8 @@ namespace TheLauncher
     class Program
     {
 
-        const string pathApp = "..\\..\\keywordsApp.txt";
-        const string pathFolder = "..\\..\\keywordsFolder.txt";
+        const string pathApp = "keywordsApp.txt";
+        const string pathFolder = "keywordsFolder.txt";
         
         static void Main(string[] args)
         {
@@ -22,10 +22,10 @@ namespace TheLauncher
 
             string newLine = "";
             string EnterText = "";
-
-            Console.WriteLine("---------------------------------------------------------");
-            Console.WriteLine("-\tPour voir toutes les commandes faites \"help\"\t-");
-            Console.WriteLine("---------------------------------------------------------");
+            
+            Console.WriteLine("-------------------------------------------------");
+            Console.WriteLine("-\tTo see all commands made \"help\"\t\t-");
+            Console.WriteLine("-------------------------------------------------");
             do
             {
                 Console.Write("Run\n$ ");
@@ -46,41 +46,41 @@ namespace TheLauncher
                         break;
                     case "add":
                         switch (word[1])
-                        {
-                            case "-a":
-                                newLine += word[2];
-                                newLine += " ";
-                                newLine += word[3];
-                                newLine += "\n";
-                                File.AppendAllText(pathApp, newLine);
-                                break;
-                            case "-f":
-                                newLine += word[2];
-                                newLine += " ";
-                                newLine += word[3];
-                                newLine += "\n";
-                                File.AppendAllText(pathFolder, newLine);
-                                break;
-                            default:
-                                Console.Write("App ou Dossier ?\n1|2 ");
-                                EnterText = Console.ReadLine();
-                                if (EnterText == "1")
-                                {
-                                    Console.WriteLine("Pour ajouter une application faites: add -a [mot-clef] [chemin d'accès]");
-                                }
-                                else if (EnterText == "2")
-                                {
-                                    Console.WriteLine("Pour ajouter un dossier faites: add -f [mot-clef] [chemin d'accès]");
-                                }
-                                break;
-                        }
+                            {
+                                case "-a":
+                                    newLine += word[2];
+                                    newLine += " ";
+                                    newLine += word[3];
+                                    newLine += "\n";
+                                    File.AppendAllText(pathApp, newLine);
+                                    break;
+                                case "-f":
+                                    newLine += word[2];
+                                    newLine += " ";
+                                    newLine += word[3];
+                                    newLine += "\n";
+                                    File.AppendAllText(pathFolder, newLine);
+                                    break;
+                                default:
+                                    Console.Write("Application or Folder ?\n1|2 ");
+                                    char Choise = Console.ReadKey().KeyChar;
+                                    if (EnterText == "1")
+                                    {
+                                        Console.WriteLine("To add an application : add -a [mot-clef] [chemin d'accès]");
+                                    }
+                                    else if (EnterText == "2")
+                                    {
+                                        Console.WriteLine("To add a folder : add -f [mot-clef] [chemin d'accès]");
+                                    }
+                                    break;
+                            }
                         break;
                     case "clear":
                         Console.Clear();
 
-                        Console.WriteLine("---------------------------------------------------------");
-                        Console.WriteLine("-\tPour voir toutes les commandes faites \"help\"\t-");
-                        Console.WriteLine("---------------------------------------------------------");
+                        Console.WriteLine("-------------------------------------------------");
+                        Console.WriteLine("-\tTo see all commands made \"help\"\t\t-");
+                        Console.WriteLine("-------------------------------------------------");
                         break;
                     default:
                         if (EnterText != "")
@@ -88,12 +88,12 @@ namespace TheLauncher
                             bool LauncherOK = StartApp(EnterText); // Regarde directement si la saisie est un mot-clef
                             if (!LauncherOK)
                             {
-                                Console.Write("Ce mot-clef n'exite pas\nVoulez-vous le créer ?\n y/n : ");
-                                EnterText = Console.ReadLine();
+                                Console.Write("This keyword doesn't exist\nDo you want to create it ?\n y/n : ");
+                                char Choise = Console.ReadKey().KeyChar;
                                 if (EnterText == "y")
                                 {
-                                    Console.WriteLine("Dossier ou application ?\n 1\\2");
-                                    EnterText = (Console.ReadLine());
+                                    Console.WriteLine("Folder or application ?\n 1\\2");
+                                    Choise = Console.ReadKey().KeyChar;
                                     if (EnterText == "1")
                                     {
                                         WriteFileFolder();
@@ -116,8 +116,8 @@ namespace TheLauncher
         static void WriteFileFolder()
         {
             string newLine = "";
-            Console.WriteLine("Créer un mot-clef pour un dossier");
-            Console.Write("Sans Espace au début\nEntre le nom du mot-clef: ");
+            Console.WriteLine("Create a keyword for a folder");
+            Console.Write("Whitout Espace au début\nEntre le nom du mot-clef: ");
             newLine += Console.ReadLine();
             newLine += " ";
             Console.Write("\nSans Espace au début\nEntre le chemin d'accès: ");
@@ -237,6 +237,6 @@ namespace TheLauncher
             Console.WriteLine("\n------------------------------------------------------\n");
         }
 
-
+        
     }
 }
