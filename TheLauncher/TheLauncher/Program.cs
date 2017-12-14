@@ -15,6 +15,8 @@ namespace TheLauncher
         const string pathApp = "keywordsApp.txt";
         const string pathFolder = "keywordsFolder.txt";
         const string Config = "config.txt";
+        static string Name; 
+        static string Pc;
         
         static void Main(string[] args)
         {
@@ -25,12 +27,17 @@ namespace TheLauncher
             string newLine = "";
             string EnterText = "";
             string strSecondWord;
+
+
+            Console.Write("One spacebar\nInsert your name : ");
+            ConfigTest(Console.ReadLine());
+            Console.Clear();
             Console.WriteLine("-------------------------------------------------");
             Console.WriteLine("-\tTo see all commands made \"help\"\t\t-");
             Console.WriteLine("-------------------------------------------------");
             do
             {
-                Console.Write("\nRun\n$ ");
+                Console.Write("\n{0}@{1}-TheLauncher\n$ ", Name, Pc);
                 EnterText = (Console.ReadLine()); // Lire la saisie de l'utilisateur
                 string[] word = EnterText.Split(' ');
 
@@ -164,6 +171,37 @@ namespace TheLauncher
                 }
             } while (EnterText != "exit");
         }
+
+        static void ConfigTest(string searchedName)
+        {
+            bool test = false;
+            string[] linesConfig = File.ReadAllLines(Config);
+            int i = 0;
+            while (i < linesConfig.Length)
+            {
+                string[] word = linesConfig[i].Split(new char[] { ' ' }, 2);
+                if (word[0] == searchedName)
+                {
+                    Name = word[0];
+                    Pc = word[1];
+                    test = true;
+                }
+                i++;
+            }
+            if (test == false)
+            {
+                Console.Write("\nYou haven't an account !\nOnly one spacebar\nInsert your name and the name of your computer : ");
+                string[] name = (Console.ReadLine()).Split(new char[] { ' ' }, 2);
+                Name = name[0];
+                Pc = name[1];
+                string newLine = searchedName;
+                newLine += " ";
+                newLine += Pc;
+                newLine += "\n";
+                File.AppendAllText(Config, newLine);
+            }
+        }
+        
 
         static void RemoveKeywordApp(string SearchedWord)
         {
