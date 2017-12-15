@@ -1,4 +1,11 @@
-﻿using System;
+﻿// Auteur: Diogo Oliveira Nunes
+// Projet: TheLauncher
+// Date: 21.11.2017
+// Version de VS: 15.4
+// OS: Win10 Pro
+
+// But: Ouvrir plus facilement des fichers ou des dossiers
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -54,7 +61,7 @@ namespace TheLauncher
                         ReadFilesList();        // Call ReadFilesList()
                         break;
                     case "rm":
-                        if (word.Length <= 1)
+                        if (word.Length < 3)
                         {
                             strSecondWord = "-h";
                         }
@@ -65,16 +72,15 @@ namespace TheLauncher
                         switch (strSecondWord)
                         {
                             case "-a":
-                                RemoveKeywordApp(word[1]);
+                                RemoveKeywordApp(word[2]);
                                 break;
                             case "-f":
-                                RemoveKeywordFolder(word[1]);
+                                RemoveKeywordFolder(word[2]);
                                 break;
                             case "-h":
                                 HelpText();
                                 break;
                         }
-
                         break;
                     case "add":
                         if (word.Length < 2)
@@ -119,16 +125,7 @@ namespace TheLauncher
                                 HelpText();
                                 break;
                             default:
-                                Console.Write("Application or Folder ?\n1|2 ");
-                                char Choise = Console.ReadKey().KeyChar;
-                                if (EnterText == "1")
-                                {
-                                    Console.WriteLine("To add an application : add -a [mot-clef] [chemin d'accès]");
-                                }
-                                else if (EnterText == "2")
-                                {
-                                    Console.WriteLine("To add a folder : add -f [mot-clef] [chemin d'accès]");
-                                }
+                                HelpText(); // Au cas où...
                                 break;
                         }
                         break;
@@ -380,21 +377,19 @@ namespace TheLauncher
             Console.WriteLine("\tOpen a keyword\t\t\t\t\t [keyword's name]");
             Console.WriteLine("\n------------------------------------------------------\n");
             Console.WriteLine("\tAdd a keyword:");
-            Console.WriteLine("\t\tCreate for an application\t\t\tadd -a [keyword] [path]");
-            Console.WriteLine("\t\tCreate for a folder\t\t\t\tadd -f [keyword] [path]");
+            Console.WriteLine("\t\tCreate for an application\t\tadd -a [keyword] [path]");
+            Console.WriteLine("\t\tCreate for a folder\t\t\tadd -f [keyword] [path]");
             Console.WriteLine("\n------------------------------------------------------\n");
             Console.WriteLine("\tRemove a keyword:");
-            Console.WriteLine("\t\tRemove a keyword from applications\t\t\trm -a [keyword]");
-            Console.WriteLine("\t\tRemove a keyword from folders\t\t\trm -f [keyword]");
+            Console.WriteLine("\t\tRemove a keyword from applications\trm -a [keyword]");
+            Console.WriteLine("\t\tRemove a keyword from folders\t\trm -f [keyword]");
             Console.WriteLine("\n------------------------------------------------------\n");
             Console.WriteLine("\tSee all keywords\t\t\t\tlist");
             Console.WriteLine("\n------------------------------------------------------\n");
-            Console.WriteLine("\tClean the console\t\t\tclear");
+            Console.WriteLine("\tClean the console\t\t\t\tclear");
             Console.WriteLine("\n------------------------------------------------------\n");
-            Console.WriteLine("\tLeave the console\t\t\t\t\texit");
+            Console.WriteLine("\tLeave the console\t\t\t\texit");
             Console.WriteLine("\n------------------------------------------------------\n");
         }
-
-        
     }
 }

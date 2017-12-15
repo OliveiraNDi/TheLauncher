@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\OLIVEI~1\AppData\Local\Temp\vs8785.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Reds\AppData\Local\Temp\vsC333.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,7 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\OLIVEI~1\AppData\Local\Temp\vs8785.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Reds\AppData\Local\Temp\vsC333.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
