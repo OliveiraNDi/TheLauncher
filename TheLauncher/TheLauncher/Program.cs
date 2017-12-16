@@ -46,7 +46,7 @@ namespace TheLauncher
             {
                 Console.Write("\n{0}@{1}-TheLauncher\n$ ", Name, Pc);
                 EnterText = (Console.ReadLine()); // Lire la saisie de l'utilisateur
-                string[] word = EnterText.Split(' ');
+                string[] word = EnterText.Split(new char[] {' '}, 4);
 
                 switch (word[0])
                 {
