@@ -144,12 +144,13 @@ namespace TheLauncher
                             {
                                 Console.Write("This keyword doesn't exist\nDo you want to create it ?\n y/n :");
                                 char Choise = Console.ReadKey().KeyChar;
+                                EnterText = Convert.ToString(Choise);
                                 if (EnterText == "y")
                                 {
                                     Console.WriteLine("\nFolder or application ?\n 1\\2");
                                     Choise = Console.ReadKey().KeyChar;
-                                    string choise = Convert.ToString(Choise);
-                                    switch(choise)
+                                    EnterText = Convert.ToString(Choise);
+                                    switch(Enter)
                                     {
                                         case "1":
                                             WriteFileFolder();
